@@ -1,0 +1,71 @@
+let arrayA = [
+  { label: 1, parent: null },
+  { label: 2, parent: 1 },
+  { label: 3, parent: 2 },
+  { label: 4, parent: 2 },
+  { label: 5, parent: 1 },
+  { label: 6, parent: 1 },
+  { label: 7, parent: 6 },
+  { label: 8, parent: 6 },
+  { label: 9, parent: 8 },
+];
+
+// GENERATE TREE
+function generateTree(arr) {
+  let parent;
+  for (let i of arr) {
+    if (i.parent === null) {
+      parent = i.label;
+    }
+  }
+  let result = {
+    label: parent,
+    children: [],
+  };
+  function fillChildren(currentObj) {
+    let childrenObj;
+    for (let j of arr) {
+      if (j.parent === currentObj.label) {
+        childrenObj = {
+          label: j.label,
+          children: [],
+        };
+        currentObj.children.push(childrenObj);
+      }
+    }
+    if (!currentObj.children.length) {
+      return;
+    }
+    for (let i of currentObj.children) {
+      fillChildren(i);
+    }
+  }
+  fillChildren(result);
+  return result;
+}
+
+console.dir(generateTree(arrayA), { depth: null });
+
+
+// FLAT TREE 
+let treeA = {
+  label: 1,
+  children: [
+    {
+      label: 2,
+      children: [
+        { label: 3, children: [] },
+        { label: 4, children: [] },
+      ],
+    },
+    { label: 5, children: [] },
+    {
+      label: 6,
+      children: [
+        { label: 7, children: [] },
+        { label: 8, children: [{ label: 9, children: [] }] },
+      ],
+    },
+  ],
+};
+

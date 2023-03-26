@@ -1,0 +1,7 @@
+function compare(first, second) {
+  let result = first.filter((number) => second.includes(number));
+  return result;
+}
+
+console.log(compare([1, 2, 3, 4, 5], [2, 3, 4, 5, 6])); // a
+console.log(compare([9, 8, 3, 4, 5], [2, 7, 4, 9, 1, 0])); // b
